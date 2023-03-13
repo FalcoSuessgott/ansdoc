@@ -1,5 +1,5 @@
 # ansdoc
-Out of the box documentation for any Ansible Role by using simple Comments
+Out of the box documentation for any Ansible Role simply by using headcomments in your var file
 
 <div align="center">
 
@@ -15,47 +15,49 @@ Out of the box documentation for any Ansible Role by using simple Comments
 `ansdoc` scans your `defaults/main.yml` (change by using `--file | -f` flag) file of the current ansible role and generates a simple markdown table containing your vars including their description
 
 # Example
+`defaults/main.yml`
 ```yaml
-# bool
+# this enables the deployment
 var1: true
 
-# string
+# specify your toplevel domain
 var2: string
 
-# int
+# number of clients
 var3: 42 
 
-# list
+# valid user IDs
 var4: [1, 2, 3]
 
-# map
+# supported OS
 var5:
   linux: true
   mac: false
   windows: false
-
-# multiline 
-# comment
-var6: "value with a multiline comment"
 ```
 
-creates:
+by running:
 
-| VARIABLE | DESCRIPTION |                DEFAULT VALUE                |
-|----------|-------------|---------------------------------------------|
-| `var1`   | bool        | `"true"`                                    |
-| `var2`   | string      | `"string"`                                  |
-| `var3`   | int         | `"42"`                                      |
-| `var4`   | list        | `"[1 2 3]"`                                 |
-| `var5`   | map         | `"map[linux:true mac:false windows:false]"` |
+```bash
+> ansdoc
+```
 
+`ansdoc` creates:
+
+|      VARIABLE       |         DESCRIPTION          |                DEFAULT VALUE                |
+|---------------------|------------------------------|---------------------------------------------|
+| `enable`            | this enables the deployment  | `"true"`                                    |
+| `domain`            | specify your toplevel domain | `"ansible.com"`                             |
+| `number_of_clients` | number of clients            | `"42"`                                      |
+| `user_ids`          | valid user IDs               | `"[1 2 3]"`                                 |
+| `os`                | supported OS                 | `"map[linux:true mac:false windows:false]"` |
 
 # Installation
 ```bash
 # curl
 version=$(curl -S "https://api.github.com/repos/FalcoSuessgott/ansdoc/releases/latest" | jq -r '.tag_name[1:]')
 curl -OL "https://github.com/FalcoSuessgott/ansdoc/releases/latest/download/ansdoc_${version}_$(uname)_$(uname -m).tar.gz"
-tar xzf "vops_${version}_$(uname)_$(uname -m).tar.gz"
+tar xzf "ansdoc_${version}_$(uname)_$(uname -m).tar.gz"
 ./ansdoc version
 
 # Go 
@@ -69,15 +71,15 @@ docker run ghcr.io/falcosuessgott/ansdoc version
 version=$(curl -S "https://api.github.com/repos/FalcoSuessgott/ansdoc/releases/latest" | jq -r '.tag_name[1:]')
 curl -OL "https://github.com/FalcoSuessgott/ansdoc/releases/latest/download/ansdoc_${version}_linux_amd64.deb"
 sudo dpkg -i "./ansdoc_${version}_linux_amd64.deb"
-vops version
+ansdoc
 
 # Fedora/CentOS/RHEL
 version=$(curl -S "https://api.github.com/repos/FalcoSuessgott/ansdoc/releases/latest" | jq -r '.tag_name[1:]')
 curl -OL "https://github.com/FalcoSuessgott/ansdoc/releases/latest/download/ansdoc_${version}_linux_amd64.rpm"
 sudo dnf localinstall "./ansdoc_${version}_linux_amd64.rpm"
-vops version
+ansdoc
 
 # Sources
-git clone https://github.com/FalcoSuessgott/vops && cd ansdoc
+git clone https://github.com/FalcoSuessgott/ansdoc && cd ansdoc
 go build 
 ```

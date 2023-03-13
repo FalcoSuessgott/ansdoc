@@ -2,27 +2,37 @@ package parser
 
 import (
 	"fmt"
+	"io"
+	"os"
 	"strings"
 
-	"github.com/FalcoSuessgott/ansdoc/pkg/fs"
 	"gopkg.in/yaml.v3"
 )
 
+// Variable holds a variable including its description.
 type Variable struct {
 	Name        string
 	Description string
 	Value       interface{}
 }
 
+// ParseVars parses a vars file.
 func ParseVars(path string) ([]*Variable, error) {
 	vars := []*Variable{}
 
-	out := fs.ReadFile(path)
-
 	var n yaml.Node
 
-	err := yaml.Unmarshal(out, &n)
+	f, err := os.Open(path)
 	if err != nil {
+		return nil, err
+	}
+
+	out, err := io.ReadAll(f)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := yaml.Unmarshal(out, &n); err != nil {
 		return nil, err
 	}
 

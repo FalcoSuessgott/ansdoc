@@ -8,6 +8,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
+// NewMarkdownTable builds a new markdown table.
 func NewMarkdownTable(vars []*parser.Variable) error {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"variable", "description", "default value"})
