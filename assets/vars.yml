@@ -1,4 +1,4 @@
-# this enables the deployment
+# enable the deployment
 enable: true
 
 # specify your toplevel domain
