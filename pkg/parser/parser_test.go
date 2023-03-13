@@ -19,7 +19,7 @@ func TestParseConfig(t *testing.T) {
 			exp: []*Variable{
 				{
 					Name:        "var1",
-					Value:       "true",
+					Value:       true,
 					Description: "bool",
 				},
 				{
@@ -29,17 +29,21 @@ func TestParseConfig(t *testing.T) {
 				},
 				{
 					Name:        "var3",
-					Value:       "42",
+					Value:       42,
 					Description: "int",
 				},
 				{
 					Name:        "var4",
-					Value:       "[1 2 3]",
+					Value:       []interface{}{1, 2, 3},
 					Description: "list",
 				},
 				{
-					Name:        "var5",
-					Value:       "map[linux:true mac:false windows:false]",
+					Name: "var5",
+					Value: map[string]interface{}{
+						"linux":   true,
+						"mac":     false,
+						"windows": false,
+					},
 					Description: "map",
 				},
 				{

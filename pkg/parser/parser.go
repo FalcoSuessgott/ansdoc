@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -56,7 +55,7 @@ func ParseVars(path string) ([]*Variable, error) {
 		vars = append(vars, &Variable{
 			Name:        v.Value,
 			Description: comment,
-			Value:       fmt.Sprintf("%v", s),
+			Value:       s,
 		})
 	}
 
