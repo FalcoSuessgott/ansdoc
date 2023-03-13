@@ -5,7 +5,7 @@ Out of the box documentation for any Ansible Role simply by using headcomments i
 
 <img src="https://github.com/FalcoSuessgott/ansdoc/actions/workflows/test.yml/badge.svg" alt="drawing"/>
 <img src="https://github.com/FalcoSuessgott/ansdoc/actions/workflows/lint.yml/badge.svg" alt="drawing"/>
-<img src="https://codecov.io/gh/FalcoSuessgott/ansdoc/branch/main/graph/badge.svg" alt="drawing"/>
+<img src="https://codecov.io/gh/FalcoSuessgott/ansdoc/branch/master/graph/badge.svg" alt="drawing"/>
 <img src="https://img.shields.io/github/downloads/FalcoSuessgott/ansdoc/total.svg" alt="drawing"/>
 <img src="https://img.shields.io/github/v/release/FalcoSuessgott/ansdoc" alt="drawing"/>
 <img src="https://img.shields.io/docker/pulls/falcosuessgott/ansdoc" alt="drawing"/>
