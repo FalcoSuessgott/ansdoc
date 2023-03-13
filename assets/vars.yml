@@ -1,0 +1,17 @@
+# this enables the deployment
+enable: true
+
+# specify your toplevel domain
+domain: ansible.com
+
+# number of clients
+number_of_clients: 42 
+
+# valid user IDs
+user_ids: [1, 2, 3]
+
+# supported OS
+os:
+  linux: true
+  mac: false
+  windows: false

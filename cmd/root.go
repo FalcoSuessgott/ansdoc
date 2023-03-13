@@ -28,8 +28,9 @@ func newRootCmd(version string) *cobra.Command {
 		},
 	}
 
-	cmd.PersistentFlags().StringVarP(&file, "file", "f", file, "path to the variables file")
-	cmd.AddCommand(newVersionCmd(version))
+	cmd.AddCommand(versionCmd(version))
+
+	cmd.Flags().StringVarP(&file, "file", "f", file, "path to the variables file")
 
 	return cmd
 }
