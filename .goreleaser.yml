@@ -63,8 +63,8 @@ nfpms:
 
 dockers:
 - image_templates:
-  - 'FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
-  - 'ghcr.io/FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
+  - 'falcosuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
+  - 'ghcr.io/falcosuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
   dockerfile: Dockerfile
   use: buildx
   build_flag_templates:
@@ -80,8 +80,8 @@ dockers:
   - "--label=org.opencontainers.image.source={{.GitURL}}"
   - "--platform=linux/amd64"
 - image_templates:
-  - 'FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
-  - 'ghcr.io/FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
+  - 'falcosuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
+  - 'ghcr.io/falcosuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
   dockerfile:  Dockerfile
   use: buildx
   build_flag_templates:
@@ -90,7 +90,7 @@ dockers:
   - "--label=io.artifacthub.package.logo-url=https://raw.githubusercontent.com/FalcoSuessgott/ansdoc/master/www/static/images/logo.png"
   - "--label=io.artifacthub.package.maintainers=[{\"name\":\"Tom Morelly\",\"email\":\"tommorelly@gmail.com\"}]"
   - "--label=io.artifacthub.package.license=MIT"
-  - "--label=org.opencontainers.image.description=A general purpose golang CLI template for Github and Gitlab"
+  - "--label=org.opencontainers.image.description=out of the box documentation for you ansible roles"
   - "--label=org.opencontainers.image.created={{.Date}}"
   - "--label=org.opencontainers.image.name={{.ProjectName}}"
   - "--label=org.opencontainers.image.revision={{.FullCommit}}"
@@ -100,22 +100,22 @@ dockers:
   goarch: arm64
 
 docker_manifests:
-- name_template: 'FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}'
+- name_template: 'falcosuessgott/{{.ProjectName}}:{{ .Tag }}'
   image_templates:
-  - 'FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
-  - 'FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
-- name_template: 'ghcr.io/FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}'
+  - 'falcosuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
+  - 'falcosuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
+- name_template: 'ghcr.io/falcosuessgott/{{.ProjectName}}:{{ .Tag }}'
   image_templates:
-  - 'ghcr.io/FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
-  - 'ghcr.io/FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
-- name_template: 'FalcoSuessgott/{{.ProjectName}}:latest'
+  - 'ghcr.io/falcosuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
+  - 'ghcr.io/falcosuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
+- name_template: 'falcosuessgott/{{.ProjectName}}:latest'
   image_templates:
-  - 'FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
-  - 'FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
-- name_template: 'ghcr.io/FalcoSuessgott/{{.ProjectName}}:latest'
+  - 'falcosuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
+  - 'falcosuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
+- name_template: 'ghcr.io/falcosuessgott/{{.ProjectName}}:latest'
   image_templates:
-  - 'ghcr.io/FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
-  - 'ghcr.io/FalcoSuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
+  - 'ghcr.io/falcosuessgott/{{.ProjectName}}:{{ .Tag }}-amd64'
+  - 'ghcr.io/falcosuessgott/{{.ProjectName}}:{{ .Tag }}-arm64'
 
 checksum:
   name_template: "checksums.txt"
