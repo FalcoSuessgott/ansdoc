@@ -1,0 +1,21 @@
+# bool
+var1: true
+
+# string
+var2: string
+
+# int
+var3: 42 
+
+# list
+var4: [1, 2, 3]
+
+# map
+var5:
+  linux: true
+  mac: false
+  windows: false
+
+# multiline 
+# comment
+var6: "value with a multiline comment"
