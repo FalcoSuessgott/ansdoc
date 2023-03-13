@@ -18,19 +18,19 @@ Out of the box documentation for any Ansible Role simply by using headcomments i
 `defaults/main.yml`
 ```yaml
 # this enables the deployment
-var1: true
+enable: true
 
 # specify your toplevel domain
-var2: string
+domain: ansible.com
 
 # number of clients
-var3: 42 
+number_of_clients: 42 
 
 # valid user IDs
-var4: [1, 2, 3]
+user_ids: [1, 2, 3]
 
 # supported OS
-var5:
+os:
   linux: true
   mac: false
   windows: false
