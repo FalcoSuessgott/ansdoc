@@ -3,6 +3,7 @@ module github.com/FalcoSuessgott/ansdoc
 go 1.19
 
 require (
+	github.com/caarlos0/env/v6 v6.10.1
 	github.com/daixiang0/gci v0.10.1
 	github.com/go-critic/go-critic v0.6.7
 	github.com/golangci/golangci-lint v1.51.2

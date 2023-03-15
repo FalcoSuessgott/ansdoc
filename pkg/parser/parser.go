@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -49,15 +50,25 @@ func ParseVars(path string) ([]*Variable, error) {
 			return nil, err
 		}
 
-		// remove prefix from comment
-		comment := strings.TrimPrefix(v.HeadComment, "# ")
-
 		vars = append(vars, &Variable{
 			Name:        v.Value,
-			Description: comment,
+			Description: trimPrefix(v.HeadComment),
 			Value:       s,
 		})
 	}
 
 	return vars, nil
+}
+
+// don't ask ...
+func trimPrefix(s string) string {
+	res := ""
+
+	s = strings.ReplaceAll(s, "#", "")
+
+	for _, p := range strings.Split(s, "\n") {
+		res += fmt.Sprintf("%s ", strings.TrimSpace(p))
+	}
+
+	return strings.TrimSpace(res)
 }
