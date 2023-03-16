@@ -28,3 +28,4 @@ linters:
     - wrapcheck
     - gochecknoglobals
     - goerr113
+    - musttag
