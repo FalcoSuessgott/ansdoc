@@ -1,13 +1,39 @@
 package parser
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"os"
 	"strings"
+	"text/template"
 
 	"gopkg.in/yaml.v3"
 )
+
+const tmpl = `<table>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+{{ range .}}
+<tr>
+<td>` +
+	"\n\n```\n" +
+	`{{ .Name }}` +
+	"\n```\n\n" +
+	`</td>` +
+	`<td>{{ .Description }}</td>` +
+	`<td>` +
+	"\n\n```\n" +
+	`{{ .Value }}` +
+	"\n```\n\n" +
+	`</td>` +
+	`</tr>
+{{ end }}
+</table>
+`
 
 // Variable holds a variable including its description.
 type Variable struct {
@@ -26,6 +52,8 @@ func ParseVars(path string) ([]*Variable, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	defer f.Close()
 
 	out, err := io.ReadAll(f)
 	if err != nil {
@@ -71,4 +99,21 @@ func trimPrefix(s string) string {
 	}
 
 	return strings.TrimSpace(res)
+}
+
+// Render takes a slice of variables and renders those in a html table with its values in a code block.
+func Render(vars []*Variable) ([]byte, error) {
+	// in order to support multiline code blocks we render a html table
+	var buf bytes.Buffer
+
+	tpl, err := template.New("template").Option("missingkey=error").Parse(string(tmpl))
+	if err != nil {
+		return buf.Bytes(), err
+	}
+
+	if err := tpl.Execute(&buf, vars); err != nil {
+		return buf.Bytes(), err
+	}
+
+	return buf.Bytes(), nil
 }

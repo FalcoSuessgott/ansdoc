@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/FalcoSuessgott/ansdoc/pkg/parser"
+	"github.com/FalcoSuessgott/ansdoc/pkg/writer"
 	"github.com/caarlos0/env/v6"
-	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 )
 
@@ -19,6 +20,7 @@ type Opts struct {
 	Insert     bool   `env:"INSERT"`
 }
 
+//nolint: funlen, cyclop
 func newRootCmd(version string) *cobra.Command {
 	opts := &Opts{}
 
@@ -30,31 +32,55 @@ func newRootCmd(version string) *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:           "ansdoc",
-		Short:         "out of the box documentation for you ansible roles",
+		Short:         "out-of-the-box documentation for you ansible roles",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Println(opts)
+			if opts.Insert && opts.OutputFile == "" {
+				return fmt.Errorf("when using insert mode you need to specify an output file using --outputf-file / -o")
+			}
 
 			vars, err := parser.ParseVars(opts.File)
 			if err != nil {
 				return err
 			}
 
-			table := tablewriter.NewWriter(os.Stdout)
-			table.SetHeader([]string{"variable", "description", "default value"})
-			table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
-			table.SetCenterSeparator("|")
+			fmt.Printf("read variables from %s\n", opts.File)
 
-			data := [][]string{}
-
-			for _, v := range vars {
-				data = append(data, []string{fmt.Sprintf("`%s`", v.Name), v.Description, fmt.Sprintf("`%v`", v.Value)})
+			data, err := parser.Render(vars)
+			if err != nil {
+				return err
 			}
 
-			table.SetAutoWrapText(false)
-			table.AppendBulk(data)
-			table.Render()
+			if !opts.Insert {
+				fmt.Fprintln(os.Stdout, string(data))
+
+				return nil
+			}
+
+			if opts.Backup {
+				dest := fmt.Sprintf("%s_%s", opts.OutputFile, time.Now().Format("2006-01-02-150405"))
+
+				if err := writer.CopyFile(opts.OutputFile, dest); err != nil {
+					return err
+				}
+
+				fmt.Printf("created backup file %s\n", dest)
+			}
+
+			start, end, err := writer.SplitFile(opts.OutputFile, writer.Delimiter)
+			if err != nil {
+				return err
+			}
+
+			out := fmt.Sprintf("%s%s\n%s%s%s", start, writer.Delimiter, string(data), writer.Delimiter, end)
+
+			//nolint: gosec
+			if err := os.WriteFile(opts.OutputFile, []byte(out), 0o664); err != nil {
+				return err
+			}
+
+			fmt.Printf("inserted vars into %s\n", opts.OutputFile)
 
 			return nil
 		},

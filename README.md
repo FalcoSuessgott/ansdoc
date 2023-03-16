@@ -1,8 +1,6 @@
-# ansdoc
-Out of the box documentation for any Ansible Role simply by using headcomments in your var file
-
 <div align="center">
 
+<h1>ansdoc</h1>
 <img src="https://github.com/FalcoSuessgott/ansdoc/actions/workflows/test.yml/badge.svg" alt="drawing"/>
 <img src="https://github.com/FalcoSuessgott/ansdoc/actions/workflows/lint.yml/badge.svg" alt="drawing"/>
 <img src="https://codecov.io/gh/FalcoSuessgott/ansdoc/branch/master/graph/badge.svg" alt="drawing"/>
@@ -12,7 +10,17 @@ Out of the box documentation for any Ansible Role simply by using headcomments i
 </div>
 
 # Description
-`ansdoc` scans your `defaults/main.yml` (change by using `--file | -f` flag) file of the current ansible role and generates a simple markdown table containing your vars including their description
+`ansdoc` is a dead-simple CLI tool written in Go, that scans your Ansible Role Vars file (usually `defaults/main.yml`, change by using `--file | -f` flag) and generates a Markdown Table accordingly. 
+
+The variable description is taken be the leading headcomment of each variable (see [Example](https://github.com/FalcoSuessgott/ansdoc#example)).
+
+`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (`--output-file | -o`) between two `<!--ansdoc -->` separators (see [README.md](https://github.com/FalcoSuessgott/ansdoc/blob/master/README.md)).
+
+# Features
+* support multiline comments
+* configurable via env vars (`ANSDOC_FILE`, `ANSDOC_OUTPUT_FILE`, `ANSDOC_INSERT`, `ANSDOC_BACKUP`)
+* insert table in a specified output file
+* keep backup of output-file when inserting content
 
 # Example
 `defaults/main.yml`
@@ -34,6 +42,18 @@ os:
   linux: true
   mac: false
   windows: false
+
+#we also support jinja & you dont even need a leading space :)
+jinja: |
+  [
+  {% for server in groups[vault_raft_group_name] %}
+    {
+      "peer": "{{ server }}",
+      "api_addr": "{{ hostvars[server]['vault_api_addr'] |
+      default(vault_protocol + '://' + hostvars[server]['ansible_' + hostvars[server]['ansible_default_ipv4']['interface']]['ipv4']['address'] + ':' + (vault_port|string)) }}"
+    },
+  {% endfor %}
+  ]
 ```
 
 by running:
@@ -44,13 +64,114 @@ by running:
 
 `ansdoc` creates:
 
-|      VARIABLE       |         DESCRIPTION          |                DEFAULT VALUE                |
-|---------------------|------------------------------|---------------------------------------------|
-| `enable`            | this enables the deployment  | `"true"`                                    |
-| `domain`            | specify your toplevel domain | `"ansible.com"`                             |
-| `number_of_clients` | number of clients            | `"42"`                                      |
-| `user_ids`          | valid user IDs               | `"[1 2 3]"`                                 |
-| `os`                | supported OS                 | `"map[linux:true mac:false windows:false]"` |
+<!--ansdoc -->
+<table>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+
+<tr>
+<td>
+
+```
+enable
+```
+
+</td><td>enable the deployment</td><td>
+
+```
+true
+```
+
+</td></tr>
+
+<tr>
+<td>
+
+```
+domain
+```
+
+</td><td>specify your toplevel domain</td><td>
+
+```
+ansible.com
+```
+
+</td></tr>
+
+<tr>
+<td>
+
+```
+number_of_clients
+```
+
+</td><td>number of clients</td><td>
+
+```
+42
+```
+
+</td></tr>
+
+<tr>
+<td>
+
+```
+user_ids
+```
+
+</td><td>valid user IDs</td><td>
+
+```
+[1 2 3]
+```
+
+</td></tr>
+
+<tr>
+<td>
+
+```
+os
+```
+
+</td><td>supported OS</td><td>
+
+```
+map[linux:true mac:false windows:false]
+```
+
+</td></tr>
+
+<tr>
+<td>
+
+```
+jinja
+```
+
+</td><td>we also support jinja & you dont even need a leading space :)</td><td>
+
+```
+[
+{% for server in groups[vault_raft_group_name] %}
+  {
+    "peer": "{{ server }}",
+    "api_addr": "{{ hostvars[server]['vault_api_addr'] |
+    default(vault_protocol + '://' + hostvars[server]['ansible_' + hostvars[server]['ansible_default_ipv4']['interface']]['ipv4']['address'] + ':' + (vault_port|string)) }}"
+  },
+{% endfor %}
+]
+```
+
+</td></tr>
+
+</table>
+<!--ansdoc -->
 
 # Installation
 ```bash
