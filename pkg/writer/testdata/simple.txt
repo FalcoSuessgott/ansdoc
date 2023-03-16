@@ -1,0 +1,10 @@
+1
+2
+3
+<!--ansdoc -->
+this text needs to be split out
+<!--ansdoc -->
+6
+7
+8
+9

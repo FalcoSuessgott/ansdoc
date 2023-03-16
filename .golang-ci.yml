@@ -6,6 +6,7 @@ linters:
   disable:
     - testpackage
     - forbidigo
+    - gomnd
     - paralleltest
     - exhaustivestruct
     - varnamelen
@@ -26,3 +27,4 @@ linters:
     - nolintlint
     - wrapcheck
     - gochecknoglobals
+    - goerr113
