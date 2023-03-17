@@ -20,7 +20,7 @@ type Opts struct {
 	Insert     bool   `env:"INSERT"`
 }
 
-//nolint: funlen, cyclop
+// nolint: funlen, cyclop
 func newRootCmd(version string) *cobra.Command {
 	opts := &Opts{}
 
