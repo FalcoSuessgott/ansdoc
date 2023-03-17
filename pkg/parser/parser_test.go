@@ -36,7 +36,7 @@ func TestTrimPrefix(t *testing.T) {
 	}
 }
 
-//nolint: funlen
+// nolint: funlen
 func TestParseConfig(t *testing.T) {
 	testCases := []struct {
 		name string
