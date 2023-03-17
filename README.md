@@ -14,7 +14,7 @@
 
 The variable description is taken be the leading headcomment of each variable (see [Example](https://github.com/FalcoSuessgott/ansdoc#example)).
 
-`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (`--output-file | -o`) between two `<!--ansdoc -->` separators (see [README.md]https://github.com/FalcoSuessgott/ansdoc/blob/b1808887c5cce60f45e80f36848547e08137840b/README.md?plain=1#L67)).
+`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (`--output-file | -o`) between two `<!--ansdoc -->` separators (see [README.md](https://github.com/FalcoSuessgott/ansdoc/blob/b1808887c5cce60f45e80f36848547e08137840b/README.md?plain=1#L67)).
 
 # Features
 * support multiline comments
