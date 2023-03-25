@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"reflect"
 	"strings"
 	"text/template"
 
@@ -21,9 +20,9 @@ const tmpl = `<table>
 {{ range .}}
 <tr>
 <td>` +
-	"\n\n```\n" +
+	"\n\n" +
 	`{{ .Name }}` +
-	"\n```\n\n" +
+	"\n\n" +
 	`</td>` +
 	`<td>{{ .Description }}</td>` +
 	`<td>` +
@@ -79,18 +78,15 @@ func ParseVars(path string) ([]*Variable, error) {
 			return nil, err
 		}
 
-		// pretty print maps
-		val := reflect.ValueOf(s)
-
-		if val.Kind() == reflect.Map {
-			d, _ := yaml.Marshal(s)
-			s = string(d)
+		d, err := yaml.Marshal(s)
+		if err != nil {
+			return nil, fmt.Errorf("error while marshalling %s to yaml: %w", v.Value, err)
 		}
 
 		vars = append(vars, &Variable{
 			Name:        v.Value,
 			Description: trimPrefix(v.HeadComment),
-			Value:       s,
+			Value:       string(d),
 		})
 	}
 

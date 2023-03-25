@@ -14,7 +14,7 @@
 
 The variable description is taken be the leading headcomment of each variable (see [Example](https://github.com/FalcoSuessgott/ansdoc#example)).
 
-`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (use `--output-file | -o`) that needs to have two `<!--ansdoc -->` separators (see [README.md](https://raw.githubusercontent.com/FalcoSuessgott/ansdoc/master/README.md).
+`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (use `--output-file | -o`) that needs to have twoseparators (see [README.md](https://raw.githubusercontent.com/FalcoSuessgott/ansdoc/master/README.md).
 
 # Features
 * support multiline comments
@@ -94,14 +94,13 @@ by running:
 <tr>
 <td>
 
-```
 enable
-```
 
 </td><td>enable the deployment</td><td>
 
 ```yaml
 true
+
 ```
 
 </td></tr>
@@ -109,14 +108,13 @@ true
 <tr>
 <td>
 
-```
 domain
-```
 
 </td><td>specify your toplevel domain</td><td>
 
 ```yaml
 ansible.com
+
 ```
 
 </td></tr>
@@ -124,14 +122,13 @@ ansible.com
 <tr>
 <td>
 
-```
 number_of_clients
-```
 
 </td><td>number of clients</td><td>
 
 ```yaml
 42
+
 ```
 
 </td></tr>
@@ -139,14 +136,15 @@ number_of_clients
 <tr>
 <td>
 
-```
 user_ids
-```
 
 </td><td>valid user IDs</td><td>
 
 ```yaml
-[1 2 3]
+- 1
+- 2
+- 3
+
 ```
 
 </td></tr>
@@ -154,9 +152,7 @@ user_ids
 <tr>
 <td>
 
-```
 os
-```
 
 </td><td>supported OS</td><td>
 
@@ -172,22 +168,22 @@ windows: false
 <tr>
 <td>
 
-```
 jinja
-```
 
 </td><td>we also support jinja & you dont even need a leading space :)</td><td>
 
 ```yaml
-[
-{% for server in groups[vault_raft_group_name] %}
-  {
-    "peer": "{{ server }}",
-    "api_addr": "{{ hostvars[server]['vault_api_addr'] |
-    default(vault_protocol + '://' + hostvars[server]['ansible_' + hostvars[server]['ansible_default_ipv4']['interface']]['ipv4']['address'] + ':' + (vault_port|string)) }}"
-  },
-{% endfor %}
-]
+|-
+    [
+    {% for server in groups[vault_raft_group_name] %}
+      {
+        "peer": "{{ server }}",
+        "api_addr": "{{ hostvars[server]['vault_api_addr'] |
+        default(vault_protocol + '://' + hostvars[server]['ansible_' + hostvars[server]['ansible_default_ipv4']['interface']]['ipv4']['address'] + ':' + (vault_port|string)) }}"
+      },
+    {% endfor %}
+    ]
+
 ```
 
 </td></tr>
