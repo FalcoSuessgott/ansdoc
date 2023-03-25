@@ -15,7 +15,6 @@ import (
 // Opts contains all cli args.
 type Opts struct {
 	File       string `env:"FILE" envDefault:"defaults/main.yml"`
-	Markdown   bool   `env:"MARKDOWN" envDefault:"false"`
 	OutputFile string `env:"OUTPUT_FILE"`
 	Backup     bool   `env:"BACKUP"`
 	Insert     bool   `env:"INSERT"`
@@ -33,7 +32,7 @@ func newRootCmd(version string) *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:           "ansdoc",
-		Short:         "out-of-the-box documentation for you ansible roles",
+		Short:         "out-of-the-box documentation for any Ansible Role",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -90,10 +89,9 @@ func newRootCmd(version string) *cobra.Command {
 	cmd.AddCommand(versionCmd(version))
 
 	cmd.Flags().StringVarP(&opts.File, "file", "f", opts.File, "path to the variables file")
-	cmd.Flags().StringVarP(&opts.OutputFile, "output-file", "o", opts.OutputFile, "where to write the output to (required insert mode)")
+	cmd.Flags().StringVarP(&opts.OutputFile, "output-file", "o", opts.OutputFile, "where to write the output to (requires insert mode)")
 	cmd.Flags().BoolVarP(&opts.Backup, "backup", "b", opts.Backup, "backup the output file before writing")
 	cmd.Flags().BoolVarP(&opts.Insert, "insert", "i", opts.Insert, "insert mode, inserts the markdown table in the specified output file")
-	cmd.Flags().BoolVarP(&opts.Markdown, "markdown", "m", opts.Markdown, "wether to create a markdown or html table")
 
 	return cmd
 }
