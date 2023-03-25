@@ -14,7 +14,7 @@
 
 The variable description is taken be the leading headcomment of each variable (see [Example](https://github.com/FalcoSuessgott/ansdoc#example)).
 
-`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (`--output-file | -o`) between two `<!--ansdoc -->` separators (see [README.md](https://github.com/FalcoSuessgott/ansdoc/blob/b1808887c5cce60f45e80f36848547e08137840b/README.md?plain=1#L67)).
+`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (`--output-file | -o`) between two  separators (see [README.md](https://github.com/FalcoSuessgott/ansdoc/blob/b1808887c5cce60f45e80f36848547e08137840b/README.md?plain=1#L67)).
 
 # Features
 * support multiline comments
@@ -63,7 +63,6 @@ by running:
 ```
 
 `ansdoc` creates:
-
 <!--ansdoc -->
 <table>
 <tr>
@@ -81,7 +80,7 @@ enable
 
 </td><td>enable the deployment</td><td>
 
-```
+```yaml
 true
 ```
 
@@ -96,7 +95,7 @@ domain
 
 </td><td>specify your toplevel domain</td><td>
 
-```
+```yaml
 ansible.com
 ```
 
@@ -111,7 +110,7 @@ number_of_clients
 
 </td><td>number of clients</td><td>
 
-```
+```yaml
 42
 ```
 
@@ -126,7 +125,7 @@ user_ids
 
 </td><td>valid user IDs</td><td>
 
-```
+```yaml
 [1 2 3]
 ```
 
@@ -141,8 +140,11 @@ os
 
 </td><td>supported OS</td><td>
 
-```
-map[linux:true mac:false windows:false]
+```yaml
+linux: true
+mac: false
+windows: false
+
 ```
 
 </td></tr>
@@ -156,7 +158,7 @@ jinja
 
 </td><td>we also support jinja & you dont even need a leading space :)</td><td>
 
-```
+```yaml
 [
 {% for server in groups[vault_raft_group_name] %}
   {
@@ -172,6 +174,7 @@ jinja
 
 </table>
 <!--ansdoc -->
+
 
 # Installation
 ```bash
