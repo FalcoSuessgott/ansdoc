@@ -86,7 +86,7 @@ func ParseVars(path string) ([]*Variable, error) {
 		vars = append(vars, &Variable{
 			Name:        v.Value,
 			Description: trimPrefix(v.HeadComment),
-			Value:       string(d),
+			Value:       string(d), // todo: fix this
 		})
 	}
 
