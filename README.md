@@ -14,13 +14,33 @@
 
 The variable description is taken be the leading headcomment of each variable (see [Example](https://github.com/FalcoSuessgott/ansdoc#example)).
 
-`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (`--output-file | -o`) between two  separators (see [README.md](https://github.com/FalcoSuessgott/ansdoc/blob/b1808887c5cce60f45e80f36848547e08137840b/README.md?plain=1#L67)).
+`ansdoc` allows you to insert the generated Markdown Table in a specified output-file (use `--output-file | -o`) that needs to have two `<!--ansdoc -->` separators (see [README.md](https://raw.githubusercontent.com/FalcoSuessgott/ansdoc/master/README.md).
 
 # Features
 * support multiline comments
 * configurable via env vars (`ANSDOC_FILE`, `ANSDOC_OUTPUT_FILE`, `ANSDOC_INSERT`, `ANSDOC_BACKUP`)
 * insert table in a specified output file
 * keep backup of output-file when inserting content
+
+# Integrations
+* [`ansdoc-action`](https://github.com/FalcoSuessgott/ansdoc-action)
+* [`pre-commit-hook`](https://github.com/FalcoSuessgott/ansdoc#pre-commit-hook)
+
+# Usage
+```sh
+> ansdoc -h
+out-of-the-box documentation for any Ansible Role
+
+Usage:
+  ansdoc [flags]
+  ansdoc [command]
+
+Flags:
+  -b, --backup               backup the output file before writing
+  -f, --file string          path to the variables file (default "defaults/main.yml")
+  -i, --insert               insert mode, inserts the markdown table in the specified output file (default true)
+  -o, --output-file string   where to write the output to (requires insert mode) (default "README.md")
+```
 
 # Example
 `defaults/main.yml`
@@ -206,4 +226,20 @@ ansdoc
 # Sources
 git clone https://github.com/FalcoSuessgott/ansdoc && cd ansdoc
 go build 
+```
+
+# pre-commit-hook
+```yaml
+repos:
+  - repo: https://github.com/FalcoSuessgott/ansdoc
+    rev: master
+    hooks:
+      - id: ansdoc-go # if ansdoc installed via go
+        args: ["-i", "-f", "defaults/main.yml", "-o", "README.md"]
+
+      - id: ansdoc-system # if ansdoc installed via your system manager (e.g .deb, .rpm)
+        args: ["-i", "-f", "defaults/main.yml", "-o", "README.md"]
+
+      - id: ansdoc-docker # if ansdoc installed via docker/podman
+        args: ["-i", "-f", "defaults/main.yml", "-o", "README.md"]
 ```

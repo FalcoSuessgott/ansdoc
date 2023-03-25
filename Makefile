@@ -47,5 +47,5 @@ lint: ## lint go files
 
 .PHONY: pre-commit
 pre-commit:	## run pre-commit hooks
-	pre-commit run --all-files
+	pre-commit try-repo . ansdoc-go -v --all-files
 
