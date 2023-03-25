@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"reflect"
 	"strings"
 	"text/template"
 
@@ -26,7 +27,7 @@ const tmpl = `<table>
 	`</td>` +
 	`<td>{{ .Description }}</td>` +
 	`<td>` +
-	"\n\n```\n" +
+	"\n\n```yaml\n" +
 	`{{ .Value }}` +
 	"\n```\n\n" +
 	`</td>` +
@@ -76,6 +77,14 @@ func ParseVars(path string) ([]*Variable, error) {
 
 		if err := n.Content[0].Content[i+1].Decode(&s); err != nil {
 			return nil, err
+		}
+
+		// pretty print maps
+		val := reflect.ValueOf(s)
+
+		if val.Kind() == reflect.Map {
+			d, _ := yaml.Marshal(s)
+			s = string(d)
 		}
 
 		vars = append(vars, &Variable{

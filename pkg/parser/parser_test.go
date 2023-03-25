@@ -67,12 +67,8 @@ func TestParseConfig(t *testing.T) {
 					Description: "list",
 				},
 				{
-					Name: "var5",
-					Value: map[string]interface{}{
-						"linux":   true,
-						"mac":     false,
-						"windows": false,
-					},
+					Name:        "var5",
+					Value:       "linux: true\nmac: false\nwindows: false\n",
 					Description: "map",
 				},
 				{
