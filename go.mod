@@ -6,7 +6,7 @@ require (
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/daixiang0/gci v0.11.0
 	github.com/go-critic/go-critic v0.9.0
-	github.com/golangci/golangci-lint v1.54.0
+	github.com/golangci/golangci-lint v1.54.1
 	github.com/gotesttools/gotestfmt/v2 v2.5.0
 	github.com/muesli/mango-cobra v1.2.0
 	github.com/muesli/roff v0.1.0
