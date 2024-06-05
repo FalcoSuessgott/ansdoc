@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/daixiang0/gci v0.13.4
-	github.com/go-critic/go-critic v0.11.2
+	github.com/go-critic/go-critic v0.11.4
 	github.com/golangci/golangci-lint v1.56.2
 	github.com/gotesttools/gotestfmt/v2 v2.5.0
 	github.com/muesli/mango-cobra v1.2.0
@@ -50,7 +50,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/charithe/durationcheck v0.0.10 // indirect
 	github.com/chavacava/garif v0.1.0 // indirect
-	github.com/cristalhq/acmd v0.11.2 // indirect
+	github.com/cristalhq/acmd v0.12.0 // indirect
 	github.com/curioswitch/go-reassign v0.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/denis-tingaikin/go-header v0.4.3 // indirect
